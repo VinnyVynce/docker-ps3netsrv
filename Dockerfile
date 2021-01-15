@@ -19,7 +19,7 @@ ARG S6_OVERLAY_ARCH=amd64
 ARG S6_OVERLAY_RELEASE=https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.gz
 
 # Set PS3NETSRV vars
-ARG PS3NETSRV_REPO=https://github.com/aldostools/webMAN-MOD.git
+ARG PS3NETSRV_REPO=https://github.com/aldostools/webMAN-MOD/files/5776419/ps3netsrv_test.zip
 ARG PS3NETSRV_DIR=_Projects_/ps3netsrv
 ARG PS3NETSRV_BRANCH=master
 
@@ -52,9 +52,10 @@ RUN \
     mbedtls-dev \
     tar && \
   echo "Building ps3netsrv..." && \
-    git clone --depth 1 ${PS3NETSRV_REPO} repo && \
+    mkdir -p /tmp/repo/${PS3NETSRV_DIR} && \
+    wget ${PS3NETSRV_REPO} && \
+    unzip ps3netsrv_test.zip -d /tmp/repo/${PS3NETSRV_DIR} && \
     cd /tmp/repo/${PS3NETSRV_DIR} && \
-    git checkout ${PS3NETSRV_BRANCH} && \
     meson build --buildtype=release && \
     ninja -C build/ && \
     mkdir -p /tmp/ps3netsrv-bin && \

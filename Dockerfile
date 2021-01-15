@@ -53,7 +53,7 @@ RUN \
     tar && \
   echo "Building ps3netsrv..." && \
     mkdir -p /tmp/repo/${PS3NETSRV_DIR} && \
-    wget ${PS3NETSRV_REPO} && \
+    wget --no-check-certificate ${PS3NETSRV_REPO} && \
     unzip ps3netsrv_test.zip -d /tmp/repo/${PS3NETSRV_DIR} && \
     cd /tmp/repo/${PS3NETSRV_DIR} && \
     meson build --buildtype=release && \
